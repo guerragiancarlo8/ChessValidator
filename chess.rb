@@ -13,6 +13,7 @@ class Pawn < Piece
     @name = colour+"P"
   end
 
+  
 end
 
 class Rook < Piece
@@ -169,8 +170,20 @@ class SetupChessBoard
     file = File.open("simple_moves.txt")
     file.each_line do |line|
 
+      object_in_that_location = @chessBoard[(((line[0].to_i + 1).to_s + line[1]).split('')[1].to_i)*-1][(((line[0].to_i + 1).to_s + line[1]).split('')[0].to_i)*-1]
 
-      puts @chessBoard[(((line[0].to_i + 1).to_s + line[1]).split('')[1].to_i)*-1][(((line[0].to_i + 1).to_s + line[1]).split('')[0].to_i)*-1]
+      desired_location = @chessBoard[(((line[3].to_i + 1).to_s + line[4]).split('')[1].to_i)*-1][(((line[3].to_i + 1).to_s + line[4]).split('')[0].to_i)*-1]
+
+      puts desired_location
+
+      if !object_in_that_location.nil?
+        if object_in_that_location.can_move? desired_location
+          puts "LEGAL"
+        else
+          puts "ILLEGAL"
+        end
+      end
+
 
 =begin
       print (((line[0].to_i + 1).to_s + line[1]).split('')[1].to_i)*-1
